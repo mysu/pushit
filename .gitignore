@@ -16,6 +16,8 @@ pom.xml.asc
 .nrepl-port
 
 */target/
+js/
+out/
 
 ### Vim ###
 # swap
