@@ -1,4 +1,4 @@
-var Pushit = React.createClass({
+var PushIt = React.createClass({
     getInitialState: function(){
         return {data: []};
     },
@@ -6,28 +6,28 @@ var Pushit = React.createClass({
         this.connectToServer();
     },
     connectToServer: function(){
-        var stomClient = null;
+        var stompClient = null;
         var component = this;
 
         function connect(){
             var socket = new WebSocket('ws://' +  location.host + '/gate');
-            stomClient = Stom.over(socket);
-            stomClient.connect({}, connectHandle, errorHandle);
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, connectHandle, errorHandle);
         }
 
         function connectHandle(frame){
             console.log('Connected: ' + frame);
-            stomClient.send('/app/msgbus/init', {}, 'init');
-            stomClient.subscribe('/topic/msgbus', function (data){
+            stompClient.send('/app/msgbus/init', {}, 'init');
+            stompClient.subscribe('/topic/msgbus', function (data){
                 console.log(data.body);
                 component.setState({data: JSON.parse(data.body)});
             });
         }
 
         function errorHandle(message){
-            if(stomClient != null){
-                stomClient.disconnect();
-                stomClient = null;
+            if(stompClient != null){
+                stompClient.disconnect();
+                stompClient = null;
             }
 
             console.log('Disconnected: ' +  message);
