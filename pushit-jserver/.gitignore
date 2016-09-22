@@ -5,3 +5,4 @@ target/
 tomcat.*
 .idea
 *.iml
+*.log

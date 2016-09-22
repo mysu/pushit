@@ -20,7 +20,8 @@ var PushIt = React.createClass({
             stompClient.send('/app/msgbus/init', {}, 'init');
             stompClient.subscribe('/topic/msgbus', function (data){
                 console.log(data.body);
-                component.setState({data: JSON.parse(data.body)});
+                var items = JSON.parse(data.body).concat(component.state.data);
+                component.setState({data: items});
             });
         }
 
@@ -43,10 +44,14 @@ var PushIt = React.createClass({
             msgs.push(<PushItem msg={pushitData[i].msg}/>);
         }
         return (
-            <div className='jumbotron container-fluid'>
-                <h2>Messages</h2>
-                {msgs}
-            </div>
+           <div className='panel panel-default'>
+             <div className='panel-heading'>Messages</div>
+             <div className='panel-body'>
+               <div className='list-group'>
+               {msgs}
+               </div>
+             </div>
+           </div>
         );
     }
 });
@@ -55,9 +60,7 @@ var PushItem = React.createClass({
     render: function(){
         var msg = this.props.msg;
         return (
-            <div className='jumbotron'>
-                <a href='{msg}'>{msg}</a>
-            </div>
+            <a href={msg} target="_blank" className='list-group-item'>{msg}</a>
         );
     }
 });
