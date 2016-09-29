@@ -8,8 +8,24 @@ var PushIt = React.createClass({
     connectToServer: function(){
         var stompClient = null;
         var component = this;
+        var pushId;
 
-        function connect(){
+        function getPushId(){
+            fetch('http://' + location.host + "/push")
+                .then((response) =>{
+                    console.log(response);
+                    return response.json();
+                }).then((val)=>{
+                    if(val && val.success){
+                        pushId=val.pushId;
+                        connect();
+                    }else{
+                        console.log("Error: " +  val);
+                     }
+                });
+        }
+
+        function connect(pushId){
             var socket = new WebSocket('ws://' +  location.host + '/gate');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, connectHandle, errorHandle);
@@ -17,8 +33,8 @@ var PushIt = React.createClass({
 
         function connectHandle(frame){
             console.log('Connected: ' + frame);
-            stompClient.send('/app/msgbus/init', {}, 'init');
-            stompClient.subscribe('/topic/msgbus', function (data){
+            stompClient.send('/app/msgbus/init', {"pushId": pushId}, 'init');
+            stompClient.subscribe('/topic/msgbus/' + pushId, function (data){
                 console.log(data.body);
                 var items = JSON.parse(data.body).concat(component.state.data);
                 component.setState({data: items});
@@ -34,7 +50,7 @@ var PushIt = React.createClass({
             console.log('Disconnected: ' +  message);
         }
 
-        connect();
+        getPushId();
     },
     render: function(){
         var msgs = [];

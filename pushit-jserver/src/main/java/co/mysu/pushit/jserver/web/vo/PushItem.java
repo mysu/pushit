@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class PushItem extends WSocketMessage{
     private final String msg;
+	private final String pushId;
 
 	@Override
 	public MessageType getMessageType() {
