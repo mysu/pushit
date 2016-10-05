@@ -18,6 +18,7 @@ var PushIt = React.createClass({
                 }).then((val)=>{
                     if(val && val.success){
                         pushId=val.pushId;
+                        jQuery('#qrcode').qrcode(pushId);
                         connect();
                     }else{
                         console.log("Error: " +  val);
@@ -37,7 +38,7 @@ var PushIt = React.createClass({
             stompClient.subscribe('/topic/msgbus/' + pushId, function (data){
                 console.log(data.body);
                 var items = JSON.parse(data.body).concat(component.state.data);
-                component.setState({data: items});
+                component.setState({pushId: pushId, data: items});
             });
         }
 
@@ -60,6 +61,7 @@ var PushIt = React.createClass({
             msgs.push(<PushItem msg={pushitData[i].msg}/>);
         }
         return (
+        <div>
            <div className='panel panel-default'>
              <div className='panel-heading'>Messages</div>
              <div className='panel-body'>
@@ -68,6 +70,7 @@ var PushIt = React.createClass({
                </div>
              </div>
            </div>
+         </div>
         );
     }
 });
@@ -83,5 +86,5 @@ var PushItem = React.createClass({
 
 ReactDOM.render(
     <PushIt />,
-    document.getElementById('container')
+    document.getElementById('messages')
 );
