@@ -6,3 +6,4 @@ tomcat.*
 .idea
 *.iml
 *.log
+*.swp

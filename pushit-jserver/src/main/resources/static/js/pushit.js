@@ -18,7 +18,7 @@ var PushIt = React.createClass({
                 }).then((val)=>{
                     if(val && val.success){
                         pushId=val.pushId;
-                        jQuery('#qrcode').qrcode(pushId);
+                        jQuery('#qrcode').qrcode({text: location.host + '&' + pushId});
                         connect();
                     }else{
                         console.log("Error: " +  val);
