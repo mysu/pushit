@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/@+id/statusText" />
+                android:id="@+id/statusText"
+                android:text="Not connected" />
 
             <Button
                 android:text="Connect"
@@ -38,24 +39,25 @@
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="4"
-                android:id="@+id/@+id/connectButton" />
+                android:id="@+id/connectButton"
+                android:onClick="connect" />
 
         </GridLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="101dp"
-            android:id="@+id/@+id/editText" />
+            android:id="@+id/editText" />
 
         <Button
             android:text="Push it!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/@+id/pushButton" />
+            android:id="@+id/pushButton" />
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/@+id/sendList" />
+            android:id="@+id/sendList" />
     </LinearLayout>
 </RelativeLayout>
