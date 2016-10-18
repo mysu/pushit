@@ -16,7 +16,12 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import mobile.pushit.mysu.com.pushit_mobile.services.PushService;
+import mobile.pushit.mysu.com.pushit_mobile.services.PushServiceImpl;
+
 public class MainActivity extends AppCompatActivity {
+
+    private PushService pushService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        pushService = new PushServiceImpl(this.getApplicationContext());
     }
 
     @Override
@@ -66,10 +73,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if(scanResult!=null && Activity.RESULT_OK == resultCode){
-            Toast toast = Toast.makeText(getApplicationContext(), scanResult.getContents(), Toast.LENGTH_LONG);
-            toast.show();
-            TextView v = (TextView) findViewById(R.id.statusText);
-            v.setText(scanResult.getContents());
+            // TODO: create push context with url and pushId from scan
+            // TODO: set success text in UI
+            // TODO: add handler for push button
         }
     }
 }
