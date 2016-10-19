@@ -6,10 +6,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import mobile.pushit.mysu.com.pushit_mobile.vo.PushContext;
+import mobile.pushit.mysu.com.pushit_mobile.vo.rest.PushRequest;
 
 /**
  * Created by EdwinT on 18/10/2016.
@@ -24,11 +30,19 @@ public class PushServiceImpl implements PushService {
     }
 
     @Override
-    public void push(PushContext context, String message, final ResponseHandler rspHandler) {
-        StringRequest request = new StringRequest(Request.Method.POST, context.getUrl(), new Response.Listener<String>() {
+    public void push(PushContext context, final String message, final ResponseHandler rspHandler) {
+        JSONObject jsonRequest = null;
+        try {
+            jsonRequest = new JSONObject(createJson(context, message));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            rspHandler.error(e.getMessage());
+            return;
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, context.getUrl(), jsonRequest, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                rspHandler.success(response);
+            public void onResponse(JSONObject response) {
+                rspHandler.success(message);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -37,7 +51,13 @@ public class PushServiceImpl implements PushService {
             }
         });
 
+
+
         reqQueue.add(request);
+    }
+
+    private String createJson(PushContext context, String message) {
+        return "{'pushId': '" + context.getPushId() + "', 'msg': '" + message + "'}";
     }
 
 
