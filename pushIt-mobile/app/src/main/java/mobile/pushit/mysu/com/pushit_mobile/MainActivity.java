@@ -30,6 +30,7 @@ import mobile.pushit.mysu.com.pushit_mobile.vo.PushContext;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String SEPARATOR = "--";
     private PushService pushService;
     private String defaultUrl = "http://192.168.1.34:8080/push";
     private PushContext context;
@@ -121,10 +122,10 @@ public class MainActivity extends AppCompatActivity {
     private PushContext createPushContext(String scanned) {
         String url;
         String pushId;
-        if (scanned.contains("_")) {
-            String[] params = scanned.split("_");
-            pushId = params[0];
-            url = params[1];
+        if (scanned.contains(SEPARATOR)) {
+            String[] params = scanned.split(SEPARATOR);
+            pushId = params[1];
+            url = params[0];
         } else {
             pushId = scanned;
             url = getDefaultUrl();
