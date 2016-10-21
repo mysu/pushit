@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -32,8 +34,9 @@ public class PushItController {
 	}
 
 	@RequestMapping(method = GET)
-	public @ResponseBody RestResponse getPushIdentifier(){
-		return new PushIdentifier(UUID.randomUUID().toString());
+	public @ResponseBody RestResponse getPushIdentifier(HttpServletRequest req){
+		
+		return new PushIdentifier(req.getRequestURL() + "--" + UUID.randomUUID().toString());
 	}
 
 }
