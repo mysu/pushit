@@ -36,7 +36,7 @@ public class PushItController {
 	@RequestMapping(method = GET)
 	public @ResponseBody RestResponse getPushIdentifier(HttpServletRequest req){
 		
-		return new PushIdentifier(req.getRequestURL() + "--" + UUID.randomUUID().toString());
+		return new PushIdentifier(UUID.randomUUID().toString(), req.getRequestURL().toString());
 	}
 
 }

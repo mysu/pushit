@@ -9,6 +9,7 @@ var PushIt = React.createClass({
         var stompClient = null;
         var component = this;
         var pushId;
+        var pushServer;
 
         function getPushId(){
             fetch('http://' + location.host + "/push")
@@ -18,7 +19,8 @@ var PushIt = React.createClass({
                 }).then((val)=>{
                     if(val && val.success){
                         pushId=val.pushId;
-                        jQuery('#qrcode').qrcode({text: pushId});
+                        pushServer = val.server;
+                        jQuery('#qrcode').qrcode({text: pushServer + "--" + pushId});
                         connect();
                     }else{
                         console.log("Error: " +  val);
