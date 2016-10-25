@@ -24,12 +24,7 @@ public class PushItController {
 
 	@RequestMapping(method = POST)
 	public @ResponseBody RestResponse pushMsg(@RequestBody PushItem item){
-        PushItem theItem = item;
-        if(!item.getMsg().startsWith("http://")||!item.getMsg().startsWith("https://")){
-            theItem = new PushItem("http://" +  item.getMsg(), item.getPushId());
-        }
-
-		messagingTemplate.convertAndSend("/topic/msgbus/" +  item.getPushId(), Arrays.asList(theItem));
+		messagingTemplate.convertAndSend("/topic/msgbus/" +  item.getPushId(), Arrays.asList(item));
 		return new RestResponse(true);
 	}
 
