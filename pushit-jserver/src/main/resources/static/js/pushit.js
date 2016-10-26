@@ -20,7 +20,7 @@ var PushIt = React.createClass({
                     if(val && val.success){
                         pushId=val.pushId;
                         pushServer = val.server;
-                        jQuery('#qrcode').qrcode({text: pushServer + "--" + pushId});
+                        jQuery('#qrcodeimg').qrcode({text: pushServer + "--" + pushId});
                         connect();
                     }else{
                         console.log("Error: " +  val);

@@ -17,10 +17,6 @@
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">PushIt!</a>
-			<button class="navbar-toogle" data-toggle="collapse"
-				data-target=".navHeaderCollapse">
-				<span class="icon-bar"></span>
-			</button>
 			<div class="collapse navbar-collapse navHeaderCollapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/">Home</a></li>
@@ -29,8 +25,13 @@
 		</div>
 	</div>
 
-	<div id="container">
-		<div class="jumbotron" id="qrcode"></div>
+	<div class="container-fluid" role="main">
+		<div class="jumbotron text-center">
+			<div id="qrcode">
+				<div id="qrcodeimg"></div>
+				<p>Scan it using PushIt mobile app</p>
+			</div>
+		</div>
 		<div id="messages"></div>
 	</div>
 	<script type="text/babel" src="js/pushit.js"></script>
