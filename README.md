@@ -32,3 +32,6 @@ The technologies are:
 ## Notice
 First version is a proof-of-concept. I'm gonna refactor and improve after testing the idea.
 
+## Versions
+
+* [*v0.0.0*](https://github.com/mysu/pushit/tree/v0.0.0): Proof of Concept version. Working version, not unit nor integration testing. 
