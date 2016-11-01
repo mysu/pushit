@@ -3,6 +3,7 @@ package mobile.pushit.mysu.com.pushit_mobile;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import mobile.pushit.mysu.com.pushit_mobile.services.PushService;
 import mobile.pushit.mysu.com.pushit_mobile.services.PushServiceImpl;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private PushService pushService;
     private String defaultUrl = "http://192.168.1.34:8080/push";
     private PushContext context;
-    private ArrayList<String> itemList;
+    private List<String> itemList;
     private ArrayAdapter<String> arrayAdapter;
 
     @Override
@@ -44,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        itemList = new ArrayList<>();
+        itemList = new LinkedList<>();
 
         arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, itemList);
+        ListView sendList = findView(R.id.sendList);
+        sendList.setAdapter(arrayAdapter);
 
         pushService = new PushServiceImpl(this.getApplicationContext());
     }
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             pushService.push(context, text, new ResponseHandler() {
                 @Override
                 public void success(String response) {
-                    itemList.add(text);
+                    itemList.add(0, text);
                     arrayAdapter.notifyDataSetChanged();
                     EditText pushText = findView(R.id.pushText);
                     pushText.setText("");
