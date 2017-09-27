@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController()
-@RequestMapping("/push")
+@RequestMapping("/rest/push")
 public class PushItController {
 
 	@Autowired

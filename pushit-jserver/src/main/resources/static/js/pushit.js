@@ -12,7 +12,7 @@ var PushIt = React.createClass({
         var pushServer;
 
         function getPushId(){
-            fetch('http://' + location.host + "/push")
+            fetch('http://' + location.host + "/rest/push")
                 .then((response) =>{
                     console.log(response);
                     return response.json();
@@ -29,7 +29,7 @@ var PushIt = React.createClass({
         }
 
         function connect(pushId){
-            var socket = new WebSocket('ws://' +  location.host + '/gate');
+            var socket = new WebSocket('ws://' +  location.host + '/ws');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, connectHandle, errorHandle);
         }

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String SEPARATOR = "--";
     private PushService pushService;
-    private String defaultUrl = "http://192.168.1.34:8080/push";
+    private String defaultUrl = "http://192.168.1.34:8080/rest/push";
     private PushContext context;
     private List<String> itemList;
     private ArrayAdapter<String> arrayAdapter;
