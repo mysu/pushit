@@ -93,11 +93,12 @@ public class MainActivity extends AppCompatActivity {
                     arrayAdapter.notifyDataSetChanged();
                     EditText pushText = findView(R.id.pushText);
                     pushText.setText("");
+                    error(response);
                 }
 
                 @Override
                 public void error(String message) {
-                    Toast t  = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+                    Toast t  = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
                     t.show();
                 }
             });
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             context = createPushContext(scanResult.getContents());
 
             TextView status = findView(R.id.statusText);
-            status.setText("PushId set!");
+            status.setText("Pushing to: " +  context.getUrl() + "/" +  context.getPushId());
 
             findViewById(R.id.pushButton).setEnabled(true);
 
