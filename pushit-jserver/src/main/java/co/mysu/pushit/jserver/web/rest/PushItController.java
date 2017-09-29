@@ -22,8 +22,8 @@ public class PushItController {
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 
-	@RequestMapping(method = POST)
-	public @ResponseBody RestResponse pushMsg(@RequestBody PushItem item){
+	@RequestMapping(method = POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+	public @ResponseBody RestResponse pushMsg(PushItem item){
 		messagingTemplate.convertAndSend("/topic/msgbus/" +  item.getPushId(), Arrays.asList(item));
 		return new RestResponse(true);
 	}
