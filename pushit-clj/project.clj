@@ -63,7 +63,9 @@
               :pretty-print  false}}
             :app
             {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
-             :figwheel {:on-jsload "pushit-clj.core/mount-root"}
+             :figwheel {
+               :websocket-host "pushit.eastus.cloudapp.azure.com"
+               :on-jsload "pushit-clj.core/mount-root"}
              :compiler
              {:main "pushit-clj.dev"
               :asset-path "/js/out"
@@ -97,7 +99,8 @@
 
   :figwheel
   {:http-server-root "public"
-   :server-port 3449
+   :server-port 80
+   :server-ip "0.0.0.0"
    :nrepl-port 7002
    :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"
                       ]

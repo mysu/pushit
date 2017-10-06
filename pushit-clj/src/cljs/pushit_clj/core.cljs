@@ -12,14 +12,14 @@
 (def pushid (atom nil))
 (def messages (atom () ))
 (def log-msgs (atom () ))
-
+(def base-host (atom nil))
 ;; -------------------------
 ;; PushIt
 
 (defn connectws []
 
 
-  (def connection (js/WebSocket. (str "ws://localhost:3449/ws/" @pushid)))
+  (def connection (js/WebSocket. (str "ws://" @base-host "/ws/" @pushid)))
 
   (set! (.-onopen connection)
         (fn [e]
@@ -115,7 +115,8 @@
         (let [newid (get-in rsp [:body :pushId])
               host (get-in rsp [:body :host])]
           (reset! pushid newid)
-          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host ":3449/rest/push--" newid) })))
+          (reset! base-host host)
+          (.appendChild (.getElementById js/document "push-id") (js/kjua (clj->js {:text (str "http://" host "/rest/push--" newid) })))
           (connectws)
           ))))
 
