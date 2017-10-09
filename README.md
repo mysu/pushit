@@ -23,11 +23,21 @@ I'm gonna try to make the best use of the technologies, if not, feel free in wri
 
 The technologies are:
 
-* Spring boot
-* Websockets
-* Rest
-* React.js
-* Bootstrap
+- Java version
+  * Spring boot
+  * Websockets
+  * Rest
+  * React.js
+  * Bootstrap
+- Clojure version
+  * ring
+  * compojure
+  * http-kit
+  * jogthos-config
+  * clojurescript
+  * reagent
+  * secretary
+  * bootstrap
 
 ## Notice
 First version is a proof-of-concept. I'm gonna refactor and improve after testing the idea.
@@ -35,3 +45,4 @@ First version is a proof-of-concept. I'm gonna refactor and improve after testin
 ## Versions
 
 * [*v0.0.0*](https://github.com/mysu/pushit/tree/v0.0.0): Proof of Concept version. Working version, not unit nor integration testing. 
+* [*v0.0.1*](https://github.com/mysu/pushit/tree/v0.0.1): pushit-jserver and pushit-clj has the same functionality. Comming versions will be only available for Clojure version. pushit-jserver will be removed 
